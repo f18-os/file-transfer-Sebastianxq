@@ -58,5 +58,5 @@ if sock is None:
 
 
 #have the file input be from here?
-fileName = input("What is the name of the file you would like to send? (Format like: file.txt")
-sendFile(sock,fileName, debug)
+fileName = input("What is the name of the file you would like to send? (Format like: file.txt)")
+sendFile(sock,fileName,debug)
