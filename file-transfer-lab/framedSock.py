@@ -39,29 +39,30 @@ def framedReceive(sock, debug=0):
              return None
          if debug: print("FramedReceive: state=%s, length=%d, rbuf=%s" % (state, msgLength, rbuf))
 
-
 def sendFile(sock, payload, debug=0):
      if debug: print("fileSend: sending %d byte file" % len(payload))
      #take out os to "smallPath" then attempt an open
+     print("the file name typed in is: ",payload)
      print("finding the path")
-     testF = open("test.txt", "rb")
-     javaF = open("javaTest.java", "rb")
 
-     #smallPath = os.path.join(direct, "smallFile.txt")
-     #smallF = open(smallPath, "rb")
-     #emptyF = open(os.path.join(direct, "noSize.txt"), "rb")
-     #largeF = open(os.path.join(direct, "large.txt"), "rb")
+     
+     payloadPath = os.path.abspath(payload)
+     testPayload = open("/home/student/Desktop/large.txt", "rb")
+     writePayload = open(payloadPath, "rb")
+
+     #debugging
+     #print("and that file path is: ", rFilePath)
 
      print("reading file!")
-     length = javaF.read(100)
+     length = writePayload.read(100)
      if (length == 0):
           print("error, empty or missing file!")
      while (length):
           sock.send(length)
-          length = javaF.read(100)
+          length = writePayload.read(100)
      print("file has finished being sent")
      sock.close()
-     javaF.close()
+     writePayload.close()
 
 def getFile(sock, debug=0):
 
