@@ -57,15 +57,6 @@ if sock is None:
     sys.exit(1)
 
 
-#print("going to send howdy!")
-#framedSend(sock, b"howdy!", debug)
-#print("got back:", framedReceive(s, debug))
-
-#print("gonna send a uwu")
-#framedSend(sock, b"UWU", debug)
-#print("got back:", framedReceive(s, debug))
-
-print("gonna send a small file")
-sendFile(sock, b"noise", debug)
-#create a new method in framedSock that sends a file
-#use a file from a different directory???
+#have the file input be from here?
+fileName = input("What is the name of the file you would like to send? (Format like: file.txt")
+sendFile(sock,fileName, debug)
