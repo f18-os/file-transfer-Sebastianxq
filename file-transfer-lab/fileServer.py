@@ -31,16 +31,13 @@ while True:
     print("connection rec'd from", addr)
 
 
-    from framedSock import framedSend, framedReceive, sendFile, getFile
+    from framedSock import sendFile, getFile
 
     if not os.fork():
         print("New child proces, connecting from", addr)
         while True:
             
             dlFile = getFile(sock,debug)
-            if not dlFile:
-                print("Empty/Missing file, please retry")
-                break
             
             #if debug: print("rec'd: ", f)
             ty = b"thanks for the file!"             # make emphatic!

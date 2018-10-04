@@ -6,7 +6,7 @@ import socket, sys, re, os
 sys.path.append("../lib")       # for params
 import params
 
-from framedSock import framedSend, framedReceive, sendFile, getFile
+from framedSock import sendFile, getFile
 
 switchesVarDefaults = (
     (('-s', '--server'), 'server', "127.0.0.1:50001"),
