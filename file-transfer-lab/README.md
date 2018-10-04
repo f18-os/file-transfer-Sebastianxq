@@ -1,4 +1,5 @@
 Instructions for running the lab:
+
 1.) When specifying the file you would like to copy you must format it the
 following way
 	  a.)Spaces MUST BE omitted for the program to work as expected
