@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import sys
+import sys, os
 sys.path.append("../lib")       # for params
 import re, socket, params
 
@@ -22,21 +22,28 @@ lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # listener socket
 bindAddr = ("127.0.0.1", listenPort)
 lsock.bind(bindAddr)
 lsock.listen(5)
-print("listening on:", bindAddr)
+print("Waiting for a file on:", bindAddr)
 
-sock, addr = lsock.accept()
-
-print("connection rec'd from", addr)
-
-
-from framedSock import framedSend, framedReceive, sendFile, getFile
-
+#Support for multiple clients
 while True:
-    #payload = framedReceive(sock, debug)
-    f = getFile(sock,debug)
-    if debug: print("rec'd: ", f)
-    #if not payload:
-       # break
-    ty = b"! thanks for the file!"             # make emphatic!
-    framedSend(sock, ty, debug)
-    break #takes in one file and calls it a day
+    sock, addr = lsock.accept()
+
+    print("connection rec'd from", addr)
+
+
+    from framedSock import framedSend, framedReceive, sendFile, getFile
+
+    if not os.fork():
+        print("New child proces, connecting from", addr)
+        while True:
+            
+            dlFile = getFile(sock,debug)
+            if not dlFile:
+                print("Empty/Missing file, please retry")
+                break
+            
+            #if debug: print("rec'd: ", f)
+            ty = b"thanks for the file!"             # make emphatic!
+            framedSend(sock, ty, debug)
+            break #takes in one file and calls it a day
+        break #needed to break out of temp loop
